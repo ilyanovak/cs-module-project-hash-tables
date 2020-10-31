@@ -21,7 +21,8 @@ class HashTable:
     """
 
     def __init__(self, capacity):
-        # Your code here
+        self.table = [None] * capacity
+        self.capacity = capacity
 
 
     def get_num_slots(self):
@@ -34,7 +35,7 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        return self.capacity
 
 
     def get_load_factor(self):
@@ -51,10 +52,21 @@ class HashTable:
         FNV-1 Hash, 64-bit
 
         Implement this, and/or DJB2.
+
+        Source: https://github.com/sup/pyhash/blob/master/pyhash/pyhash.py
         """
 
-        # Your code here
+        #Constants
+        FNV_prime = 1099511628211
+        offset_basis = 14695981039346656037
+        seed = 0
 
+        #FNV-1a Hash Function
+        hash = offset_basis + seed
+        for char in key:
+            hash = hash * FNV_prime
+            hash = hash ^ ord(char)
+        return hash
 
     def djb2(self, key):
         """
@@ -70,8 +82,8 @@ class HashTable:
         Take an arbitrary key and return a valid integer index
         between within the storage capacity of the hash table.
         """
-        #return self.fnv1(key) % self.capacity
-        return self.djb2(key) % self.capacity
+        return self.fnv1(key) % self.capacity
+        # return self.djb2(key) % self.capacity
 
     def put(self, key, value):
         """
@@ -81,7 +93,7 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        self.table[self.hash_index(key)] = value
 
 
     def delete(self, key):
@@ -92,7 +104,9 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        if self.table[self.hash_index(key)] == None:
+            return 'Value in hash table at specified key is already equal to None'
+        self.table[self.hash_index(key)] = None
 
 
     def get(self, key):
@@ -103,7 +117,9 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        if self.table[self.hash_index(key)] == None:
+            return
+        return self.table[self.hash_index(key)]
 
 
     def resize(self, new_capacity):
