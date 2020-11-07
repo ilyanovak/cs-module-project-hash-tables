@@ -2,8 +2,21 @@
 
 
 def expensive_seq(x, y, z):
-    # Your code here
+    hashtable = {}
+    return calc_seq(x, y, z, hashtable)
 
+
+def calc_seq(x, y, z, hashtable):
+    if (x, y, z) in hashtable:
+        return hashtable[(x, y, z)]
+
+    if x <= 0:
+        hashtable[(x, y, z)] = y+z
+        return hashtable[(x, y, z)]
+
+    hashtable[(x, y, z)] = calc_seq(x-1, y+1, z, hashtable) + \
+        calc_seq(x-2, y+2, z*2, hashtable) + calc_seq(x-3, y+3, z*3, hashtable)
+    return hashtable[(x, y, z)]
 
 
 if __name__ == "__main__":

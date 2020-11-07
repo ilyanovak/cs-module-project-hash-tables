@@ -1,6 +1,10 @@
 def no_dups(s):
-    # Your code here
-
+    s = s.split()
+    processed = set()
+    unique_words = [word for word in s if not (
+        word in processed or processed.add(word))]
+    unique_words = " ".join(unique_words)
+    return unique_words
 
 
 if __name__ == "__main__":

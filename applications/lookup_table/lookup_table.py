@@ -1,5 +1,20 @@
-# Your code here
+import math
+import random
+import time
 
+# Create dictionary with(x, y) key-value pairs
+hash_table = {}
+begin_time = time.time()
+for x in range(2, 15):
+    for y in range(3, 7):
+        v = math.pow(x, y)
+        v = math.factorial(v)
+        v //= (x + y)
+        hash_table[(x, y)] = v
+        print(f'Hash Table Generation: x={x}, y={y}')
+end_time = time.time()
+f'Time to generate hash table is {end_time-begin_time} seconds'
+print(len(hash_table))
 
 def slowfun_too_slow(x, y):
     v = math.pow(x, y)
@@ -14,7 +29,7 @@ def slowfun(x, y):
     Rewrite slowfun_too_slow() in here so that the program produces the same
     output, but completes quickly instead of taking ages to run.
     """
-    # Your code here
+    return hash_table[(x, y)]
 
 
 

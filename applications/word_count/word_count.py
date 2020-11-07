@@ -1,5 +1,17 @@
+from collections import Counter
+
+
 def word_count(s):
-    # Your code here
+    s = s.lower()
+    char_list = ['"', ':', ';', ',', '.', '-', '+', '=', '/',
+                 '\\', '|', '[', ']', '{', '}', '(', ')', '*', '^', '&']
+    for char in char_list:
+        s = s.replace(char, "")
+    words = s.split()
+    words = dict(Counter(words))
+    if '' in words:
+        words.pop('')
+    return words
 
 
 
